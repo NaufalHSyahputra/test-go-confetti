@@ -15,3 +15,9 @@ main
 
 # Dependency directories
 vendor
+
+#air
+tmp
+
+#log
+*.log
