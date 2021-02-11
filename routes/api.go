@@ -3,6 +3,7 @@ package routes
 import (
 	"confetti-framework/app/http/controllers"
 	"confetti-framework/app/http/middleware"
+
 	. "github.com/confetti-framework/foundation/http/routing"
 )
 
@@ -20,5 +21,6 @@ import (
 */
 
 var Api = Group(
-	Get("/ping", controllers.Ping),
+	Get("/", controllers.GetTodo),
+	Get("/{id}", controllers.GetSingleTodo),
 ).Prefix("/api").Middleware(middleware.Api...)

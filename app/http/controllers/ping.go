@@ -3,9 +3,27 @@ package controllers
 import (
 	"github.com/confetti-framework/contract/inter"
 	"github.com/confetti-framework/foundation/http/outcome"
-	net "net/http"
+
+	model "confetti-framework/app/models"
+	"confetti-framework/config"
 )
 
-func Ping(_ inter.Request) inter.Response {
-	return outcome.Html("pong").Status(net.StatusOK)
+func GetTodo(_ inter.Request) inter.Response {
+	db := config.GetDBInstance()
+	todo := []model.Todo{}
+	if err := db.Find(&todo).Error; err != nil {
+		return outcome.Json(err).Status(400)
+	}
+
+	return outcome.Json(todo)
+}
+func GetSingleTodo(request inter.Request) inter.Response {
+	id := request.Parameter("id").String()
+	db := config.GetDBInstance()
+	todo := []model.Todo{}
+	if err := db.Find(&todo, id).Error; err != nil {
+		return outcome.Json(err).Status(400)
+	}
+
+	return outcome.Json(todo)
 }

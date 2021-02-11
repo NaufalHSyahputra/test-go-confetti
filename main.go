@@ -3,17 +3,19 @@ package main
 import (
 	"confetti-framework/bootstrap"
 	"confetti-framework/config"
-	"github.com/confetti-framework/contract/inter"
-	"github.com/confetti-framework/foundation/http"
 	"log"
 	net "net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/confetti-framework/contract/inter"
+	"github.com/confetti-framework/foundation/http"
 )
 
 func main() {
 	log.Println("Start " + config.App.Name + " to handle requests")
+	config.NewDB()
 	server := &net.Server{
 		Addr:         ":" + strconv.Itoa(config.App.Port),
 		Handler:      net.HandlerFunc(HandleKernel),
